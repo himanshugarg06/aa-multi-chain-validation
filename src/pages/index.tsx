@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   const [smartAccountAddress, setSmartAccountAddress] = useState<string | null>(null)
   const [smartAccount, setSmartAccount] = useState<BiconomySmartAccountV2 | null>(null)
-  const [transactionHash, setTransactionHash] = useState<string | null>(null)
+  const [transactionHash, setTransactionHash] = useState<string | any>(null)
 
   const createSmartAccountAddresses = async () => {
     try {
@@ -61,9 +61,9 @@ export default function Home() {
           mode: PaymasterMode.SPONSORED
         }
       });
-      const receipt = await response?.wait();
+      const receipt = await response?.waitForTxHash();
       console.log(receipt)
-      setTransactionHash(receipt?.receipt.transactionHash)
+      setTransactionHash(receipt?.transactionHash)
 
     } catch (error) {
       console.log(error)
